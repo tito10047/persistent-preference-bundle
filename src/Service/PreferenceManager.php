@@ -32,11 +32,6 @@ class PreferenceManager implements PreferenceManagerInterface
 			return $context;
 		}
 
-		// 2. If the object implements your interface, use it (Highest Priority)
-		if ($context instanceof PersistentContextInterface) {
-			return $context->getPersistentContext();
-		}
-
 		// 3. Try external resolvers (e.g. for Symfony UserInterface)
 		foreach ($this->resolvers as $resolver) {
 			if ($resolver->supports($context)) {
