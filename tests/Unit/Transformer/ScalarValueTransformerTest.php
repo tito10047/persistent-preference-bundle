@@ -1,0 +1,69 @@
+<?php
+
+namespace Tito10047\PersistentPreferenceBundle\Tests\Unit\Transformer;
+
+use PHPUnit\Framework\TestCase;
+use Tito10047\PersistentPreferenceBundle\Transformer\ScalarValueTransformer;
+
+class ScalarValueTransformerTest extends TestCase
+{
+    private ScalarValueTransformer $transformer;
+
+    protected function setUp(): void
+    {
+        $this->transformer = new ScalarValueTransformer();
+    }
+
+    public function testSupportsForScalarsAndNull(): void
+    {
+        $this->assertTrue($this->transformer->supports(0));
+        $this->assertTrue($this->transformer->supports(123));
+        $this->assertTrue($this->transformer->supports(1.5));
+        $this->assertTrue($this->transformer->supports(''));
+        $this->assertTrue($this->transformer->supports('hello'));
+        $this->assertTrue($this->transformer->supports(true));
+        $this->assertTrue($this->transformer->supports(false));
+        $this->assertTrue($this->transformer->supports(null));
+    }
+
+    public function testSupportsForNonScalars(): void
+    {
+        $this->assertFalse($this->transformer->supports([]));
+        $this->assertFalse($this->transformer->supports(['a' => 1]));
+        $this->assertFalse($this->transformer->supports(new \stdClass()));
+        $this->assertFalse($this->transformer->supports(function () { return 1; }));
+    }
+
+    public function testTransformIsIdentityForSupportedValues(): void
+    {
+        $inputs = [0, 123, 1.5, '', 'hello', true, false, null];
+        foreach ($inputs as $in) {
+            $this->assertSame($in, $this->transformer->transform($in));
+        }
+    }
+
+    public function testSupportsReverseMatchesSupports(): void
+    {
+        $supported = [0, 123, 1.5, '', 'hello', true, false, null];
+        foreach ($supported as $val) {
+            $this->assertTrue($this->transformer->supportsReverse($val));
+        }
+
+        $unsupported = [[], ['a' => 1], new \stdClass(), function () {}];
+        foreach ($unsupported as $val) {
+            $this->assertFalse($this->transformer->supportsReverse($val));
+        }
+    }
+
+    public function testReverseTransformIsIdentityForSupportedValues(): void
+    {
+        $inputs = [0, 123, 1.5, '', 'hello', true, false, null];
+        foreach ($inputs as $in) {
+            $this->assertSame($in,
+				$this->transformer->reverseTransform(
+					$this->transformer->transform($in)
+				)
+			);
+        }
+    }
+}
