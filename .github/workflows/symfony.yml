@@ -1,0 +1,93 @@
+# GitHub Action for Symfony with MySQL
+name: Tests
+on:
+    pull_request:
+        branches: [ main ]
+    push:
+        branches:
+            - '**'
+concurrency:
+    group: ci-${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+jobs:
+    symfony:
+        name: "Tests"
+        runs-on: ${{ matrix.operating-system }}
+
+        # Docs: https://docs.github.com/en/actions/using-containerized-services
+        services:
+            mysql:
+                image: mysql:latest
+                env:
+                    MYSQL_ALLOW_EMPTY_PASSWORD: false
+                    MYSQL_ROOT_PASSWORD: symfony
+                    MYSQL_DATABASE: symfony_test
+                ports:
+                    - 3306/tcp
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        strategy:
+            fail-fast: false
+            matrix:
+                php-version:
+                    - "8.1"
+                    - "8.2"
+                    - "8.3"
+                    - "8.4"
+                symfony:
+                    - '6.4.*'
+                    - '7.3.*'
+                    - '7.4.*'
+                    - '8.0.*'
+                operating-system:
+                    - "ubuntu-latest"
+                exclude:
+                    # Symfony 7.3 does not support PHP 8.1
+                    -   php-version: "8.1"
+                        symfony: '7.3.*'
+                        operating-system: "ubuntu-latest"
+                    -   php-version: "8.1"
+                        symfony: '8.0.*'
+                        operating-system: "ubuntu-latest"
+                    -   php-version: "8.2"
+                        symfony: '8.0.*'
+                        operating-system: "ubuntu-latest"
+                    -   php-version: "8.3"
+                        symfony: '8.0.*'
+                        operating-system: "ubuntu-latest"
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v4
+
+            -   name: "Install PHP"
+                uses: "shivammathur/setup-php@v2"
+                with:
+                    coverage: "pcov"
+                    php-version: "${{ matrix.php-version }}"
+                    ini-values: memory_limit=-1
+
+            -   name: "Configure Symfony"
+                run: 'composer config extra.symfony.require "${{ matrix.symfony }}"'
+
+            -   name: Get composer cache directory
+                id: composer-cache
+                run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+            -   name: "Cache dependencies"
+                uses: "actions/cache@v3"
+                with:
+                    path: |
+                        ~/.composer/cache
+                        vendor
+                    key: "php-${{ matrix.php-version }}-symfony-${{ matrix.symfony }}"
+                    restore-keys: "php-${{ matrix.php-version }}-symfony-${{ matrix.symfony }}"
+
+            -   name: "Install highest dependencies"
+                run: "composer update --no-interaction --no-progress --no-suggest"
+
+            -   name: set sql mode
+                run: mysql --protocol=tcp -h localhost -P ${{ job.services.mysql.ports['3306'] }}  -uroot -psymfony -e "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));"
+
+            -   name: Execute tests (Unit and Feature tests) via PHPUnit
+                env:
+                    DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
+                run: "composer test"

@@ -1,0 +1,3 @@
+zenstruck_foundry:
+    # Enable auto-refresh with lazy objects (PHP >= 8.4 only).
+#    enable_auto_refresh_with_lazy_objects: true
