@@ -5,6 +5,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Tito10047\PersistentPreferenceBundle\Converter\MetadataConverterInterface;
 use Tito10047\PersistentPreferenceBundle\Converter\ObjectVarsConverter;
 use Tito10047\PersistentPreferenceBundle\DependencyInjection\Compiler\AutoTagContextKeyResolverPass;
+use Tito10047\PersistentPreferenceBundle\DependencyInjection\Compiler\AutoTagValueTransformerPass;
 use Tito10047\PersistentPreferenceBundle\Service\PreferenceManager;
 use Tito10047\PersistentPreferenceBundle\Service\PreferenceManagerInterface;
 use Tito10047\PersistentPreferenceBundle\Storage\SessionStorage;
@@ -41,6 +42,7 @@ return static function (ContainerConfigurator $container): void {
 		->public()
             ->arg('$storage', service('persistent_preference.storage.session'))
             ->arg('$resolvers', tagged_iterator(AutoTagContextKeyResolverPass::TAG))
+            ->arg('$transformers', tagged_iterator(AutoTagValueTransformerPass::TAG))
 		->arg('$metadataConverter', service('persistent_preference.converter.object_vars'))
 		->arg('$ttl', null)
             ->tag('persistent_preference.manager', ['name' => 'default'])

@@ -15,7 +15,4 @@ use function Zenstruck\Foundry\object;
 
 class PreferenceManagerTest extends AssetMapperKernelTestCase
 {
-    public function testGetPreferenceAndSelectFlow(): void
-    {
-    }
 }

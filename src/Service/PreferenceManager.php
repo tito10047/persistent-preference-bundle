@@ -13,8 +13,8 @@ class PreferenceManager implements PreferenceManagerInterface
 	 * @param iterable<ValueTransformerInterface> $transformers
 	 */
 	public function __construct(
-		private readonly iterable $resolvers = [],
-		private readonly iterable $transformers = [],
+		private readonly iterable $resolvers,
+		private readonly iterable $transformers,
 		private readonly StorageInterface $storage,
 	) {}
 

@@ -21,7 +21,7 @@ services:
 
     Tito10047\PersistentPreferenceBundle\Tests\App\AssetMapper\Src\ServiceHelper:
         arguments:
-            $normalizers: !tagged_iterator persistent_preference.identifier_normalizer
-            $loaders: !tagged_iterator persistent_preference.identity_loader
+            $resolvers: !tagged_iterator persistent_preference.context_key_resolver
+            $transformers: !tagged_iterator persistent_preference.value_transformer
         public: true
 
