@@ -2,6 +2,7 @@
 
 namespace Tito10047\PersistentPreferenceBundle\Service;
 
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Tito10047\PersistentPreferenceBundle\Resolver\ContextKeyResolverInterface;
 use Tito10047\PersistentPreferenceBundle\Storage\StorageInterface;
 use Tito10047\PersistentPreferenceBundle\Transformer\ValueTransformerInterface;
@@ -16,13 +17,14 @@ class PreferenceManager implements PreferenceManagerInterface
 		private readonly iterable $resolvers,
 		private readonly iterable $transformers,
 		private readonly StorageInterface $storage,
+		private readonly EventDispatcherInterface $dispatcher,
 	) {}
 
 	public function getPreference(object|string $context): PreferenceInterface
 	{
 		$contextKey = $this->resolveContextKey($context);
 
-		return new Preference($this->transformers, $contextKey, $this->storage);
+		return new Preference($this->transformers, $contextKey, $this->storage, $this->dispatcher);
 	}
 
 	public function getStorage(): StorageInterface

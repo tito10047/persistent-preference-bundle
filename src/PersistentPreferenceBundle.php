@@ -82,6 +82,7 @@ class PersistentPreferenceBundle extends AbstractBundle {
 				->arg('$resolvers', tagged_iterator(AutoTagContextKeyResolverPass::TAG))
 				->arg('$transformers', tagged_iterator(AutoTagValueTransformerPass::TAG))
 				->arg('$storage', $storage)
+				->arg('$dispatcher', service('event_dispatcher'))
 				->tag('persistent_preference.manager', ['name' => $name]);
 		}
 	}

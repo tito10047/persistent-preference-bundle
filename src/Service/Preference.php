@@ -2,6 +2,9 @@
 
 namespace Tito10047\PersistentPreferenceBundle\Service;
 
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Tito10047\PersistentPreferenceBundle\Event\PreferenceEvent;
+use Tito10047\PersistentPreferenceBundle\Event\PreferenceEvents;
 use Tito10047\PersistentPreferenceBundle\Storage\StorageInterface;
 use Tito10047\PersistentPreferenceBundle\Transformer\ValueTransformerInterface;
 
@@ -18,12 +21,23 @@ final class Preference implements PreferenceInterface
         private readonly iterable $transformers,
         private readonly string $context,
         private readonly StorageInterface $storage,
+		private readonly EventDispatcherInterface $dispatcher,
     ) {}
 
     public function set(string $key, mixed $value): self
     {
+		$event = new PreferenceEvent($this->context, $key, $value);
+		$this->dispatcher->dispatch($event, PreferenceEvents::PRE_SET);
+
+		if ($event->isPropagationStopped()) {
+			return $this;
+		}
+
         $toStore = $this->applyTransform($value);
         $this->storage->set($this->context, $key, $toStore);
+
+		$postEvent = new PreferenceEvent($this->context, $key, $event->value);
+		$this->dispatcher->dispatch($postEvent, PreferenceEvents::POST_SET);
 
         return $this;
     }
@@ -31,13 +45,29 @@ final class Preference implements PreferenceInterface
     public function import(array $values): self
     {
         $prepared = [];
-        foreach ($values as $k => $v) {
-            $prepared[$k] = $this->applyTransform($v);
+		$processedEvents = [];
+
+        foreach ($values as $key => $value) {
+			$event = new PreferenceEvent($this->context, $key, $value);
+			$this->dispatcher->dispatch($event, PreferenceEvents::PRE_SET);
+
+			$processedEvents[$key] = $event;
+
+			if ($event->isPropagationStopped()) {
+				return $this;
+			}
+
+            $prepared[$key] = $this->applyTransform($value);
         }
 
         if ($prepared !== []) {
             $this->storage->setMultiple($this->context, $prepared);
         }
+
+		foreach ($processedEvents as $key => $preEvent) {
+			$postEvent = new PreferenceEvent($this->context, $key, $preEvent->value);
+			$this->dispatcher->dispatch($postEvent, PreferenceEvents::POST_SET);
+		}
 
         return $this;
     }
