@@ -7,10 +7,10 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Tito10047\PersistentPreferenceBundle\Command\DebugPreferenceCommand;
-use Tito10047\PersistentPreferenceBundle\Service\PreferenceInterface;
+use Tito10047\PersistentPreferenceBundle\Preference\Service\PreferenceInterface;
+use Tito10047\PersistentPreferenceBundle\Preference\Storage\PreferenceSessionStorage;
+use Tito10047\PersistentPreferenceBundle\Preference\Storage\PreferenceStorageInterface;
 use Tito10047\PersistentPreferenceBundle\Service\PersistentManagerInterface;
-use Tito10047\PersistentPreferenceBundle\Storage\PreferenceSessionStorage;
-use Tito10047\PersistentPreferenceBundle\Storage\PreferenceStorageInterface;
 
 class DebugPreferenceCommandTest extends TestCase
 {

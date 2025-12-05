@@ -1,6 +1,6 @@
 <?php
 
-namespace Tito10047\PersistentPreferenceBundle\Storage;
+namespace Tito10047\PersistentPreferenceBundle\Preference\Storage;
 
 /**
  * Responsibility: Physical data persistence mechanism.

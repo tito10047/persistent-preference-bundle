@@ -3,8 +3,8 @@
 namespace Tito10047\PersistentPreferenceBundle\Storage;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\QueryBuilder;
+use Tito10047\PersistentPreferenceBundle\Preference\Storage\PreferenceEntityInterface;
+use Tito10047\PersistentPreferenceBundle\Preference\Storage\PreferenceStorageInterface;
 
 final class DoctrinePreferenceStorage implements PreferenceStorageInterface
 {

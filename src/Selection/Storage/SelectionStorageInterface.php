@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace Tito10047\PersistentPreferenceBundle\Storage;
+namespace Tito10047\PersistentPreferenceBundle\Selection\Storage;
 
 
 

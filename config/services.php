@@ -3,21 +3,20 @@
 use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Tito10047\PersistentPreferenceBundle\DataCollector\PreferenceDataCollector;
+use Tito10047\PersistentPreferenceBundle\Command\DebugPreferenceCommand;
 use Tito10047\PersistentPreferenceBundle\Converter\MetadataConverterInterface;
 use Tito10047\PersistentPreferenceBundle\Converter\ObjectVarsConverter;
+use Tito10047\PersistentPreferenceBundle\DataCollector\PreferenceDataCollector;
 use Tito10047\PersistentPreferenceBundle\DependencyInjection\Compiler\AutoTagContextKeyResolverPass;
 use Tito10047\PersistentPreferenceBundle\DependencyInjection\Compiler\AutoTagValueTransformerPass;
+use Tito10047\PersistentPreferenceBundle\Preference\Storage\PreferenceSessionStorage;
+use Tito10047\PersistentPreferenceBundle\Preference\Storage\PreferenceStorageInterface;
+use Tito10047\PersistentPreferenceBundle\Resolver\PersistentContextResolver;
 use Tito10047\PersistentPreferenceBundle\Service\PersistentManager;
 use Tito10047\PersistentPreferenceBundle\Service\PersistentManagerInterface;
-use Tito10047\PersistentPreferenceBundle\Service\TraceablePersistentManager;
-use Tito10047\PersistentPreferenceBundle\Storage\PreferenceSessionStorage;
-use Tito10047\PersistentPreferenceBundle\Storage\PreferenceStorageInterface;
-use Tito10047\PersistentPreferenceBundle\Resolver\PersistentContextResolver;
 use Tito10047\PersistentPreferenceBundle\Transformer\ScalarValueTransformer;
 use Tito10047\PersistentPreferenceBundle\Twig\PreferenceExtension;
 use Tito10047\PersistentPreferenceBundle\Twig\PreferenceRuntime;
-use Tito10047\PersistentPreferenceBundle\Command\DebugPreferenceCommand;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
 

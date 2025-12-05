@@ -10,10 +10,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Tito10047\PersistentPreferenceBundle\Preference\Storage\PreferenceSessionStorage;
+use Tito10047\PersistentPreferenceBundle\Preference\Storage\PreferenceStorageInterface;
 use Tito10047\PersistentPreferenceBundle\Service\PersistentManagerInterface;
 use Tito10047\PersistentPreferenceBundle\Storage\DoctrinePreferenceStorage;
-use Tito10047\PersistentPreferenceBundle\Storage\PreferenceSessionStorage;
-use Tito10047\PersistentPreferenceBundle\Storage\PreferenceStorageInterface;
 
 #[AsCommand(name: 'debug:preference', description: 'Print preferences for a given context and manager')]
 final class DebugPreferenceCommand extends Command

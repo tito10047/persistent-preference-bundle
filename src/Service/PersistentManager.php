@@ -3,9 +3,11 @@
 namespace Tito10047\PersistentPreferenceBundle\Service;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Tito10047\PersistentPreferenceBundle\Preference\Service\Preference;
+use Tito10047\PersistentPreferenceBundle\Preference\Service\PreferenceInterface;
+use Tito10047\PersistentPreferenceBundle\Preference\Storage\PreferenceStorageInterface;
 use Tito10047\PersistentPreferenceBundle\Resolver\ContextKeyResolverInterface;
-use Tito10047\PersistentPreferenceBundle\Storage\PreferenceStorageInterface;
-use Tito10047\PersistentPreferenceBundle\Storage\SelectionStorageInterface;
+use Tito10047\PersistentPreferenceBundle\Selection\Service\SelectionInterface;
 use Tito10047\PersistentPreferenceBundle\Transformer\ValueTransformerInterface;
 
 class PersistentManager implements PersistentManagerInterface

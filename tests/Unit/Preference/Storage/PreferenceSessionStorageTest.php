@@ -1,13 +1,13 @@
 <?php
 
-namespace Tito10047\PersistentPreferenceBundle\Tests\Unit\Storage;
+namespace Tito10047\PersistentPreferenceBundle\Tests\Unit\Preference\Storage;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Tito10047\PersistentPreferenceBundle\Storage\PreferenceSessionStorage;
+use Tito10047\PersistentPreferenceBundle\Preference\Storage\PreferenceSessionStorage;
 
 class PreferenceSessionStorageTest extends TestCase
 {

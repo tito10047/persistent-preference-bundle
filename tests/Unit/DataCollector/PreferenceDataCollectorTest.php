@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Tito10047\PersistentPreferenceBundle\DataCollector\PreferenceDataCollector;
-use Tito10047\PersistentPreferenceBundle\Service\PersistentManagerInterface;
-use Tito10047\PersistentPreferenceBundle\Storage\PreferenceStorageInterface;
+use Tito10047\PersistentPreferenceBundle\Preference\Storage\PreferenceStorageInterface;
 
 final class PreferenceDataCollectorTest extends TestCase
 {

@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Tito10047\PersistentPreferenceBundle\DataCollector\PreferenceDataCollector;
-use Tito10047\PersistentPreferenceBundle\Service\TraceablePersistentManager;
+use Tito10047\PersistentPreferenceBundle\Preference\Service\TraceablePersistentManager;
 
 /**
  * Decorates all preference managers with TraceablePreferenceManager in debug mode

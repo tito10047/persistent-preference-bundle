@@ -1,6 +1,6 @@
 <?php
 
-namespace Tito10047\PersistentPreferenceBundle\Service;
+namespace Tito10047\PersistentPreferenceBundle\Preference\Service;
 
 use Tito10047\PersistentPreferenceBundle\DataCollector\PreferenceDataCollector;
 

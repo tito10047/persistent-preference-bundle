@@ -1,11 +1,11 @@
 <?php
 
-namespace Tito10047\PersistentPreferenceBundle\Service;
+namespace Tito10047\PersistentPreferenceBundle\Preference\Service;
 
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Tito10047\PersistentPreferenceBundle\Event\PreferenceEvent;
 use Tito10047\PersistentPreferenceBundle\Event\PreferenceEvents;
-use Tito10047\PersistentPreferenceBundle\Storage\PreferenceStorageInterface;
+use Tito10047\PersistentPreferenceBundle\Preference\Storage\PreferenceStorageInterface;
 use Tito10047\PersistentPreferenceBundle\Transformer\ValueTransformerInterface;
 
 /**

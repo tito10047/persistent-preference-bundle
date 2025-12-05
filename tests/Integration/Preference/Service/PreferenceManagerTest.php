@@ -2,20 +2,17 @@
 
 namespace Tito10047\PersistentPreferenceBundle\Tests\Integration\Service;
 
-use PHPUnit\Framework\Attributes\TestWith;
 use stdClass;
-use Tito10047\PersistentPreferenceBundle\Service\PreferenceInterface;
-use Tito10047\PersistentPreferenceBundle\Service\PersistentManagerInterface;
-use Tito10047\PersistentPreferenceBundle\Service\PersistentContextInterface;
-use Tito10047\PersistentPreferenceBundle\Tests\App\AssetMapper\Src\ServiceHelper;
-use Tito10047\PersistentPreferenceBundle\Tests\Integration\Kernel\AssetMapperKernelTestCase;
-use Tito10047\PersistentPreferenceBundle\Tests\App\AssetMapper\Src\Support\TestList;
-use Tito10047\PersistentPreferenceBundle\Enum\PreferenceMode;
-use function Zenstruck\Foundry\object;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
+use Tito10047\PersistentPreferenceBundle\Enum\PreferenceMode;
+use Tito10047\PersistentPreferenceBundle\Preference\Service\PreferenceInterface;
+use Tito10047\PersistentPreferenceBundle\Service\PersistentContextInterface;
+use Tito10047\PersistentPreferenceBundle\Service\PersistentManagerInterface;
+use Tito10047\PersistentPreferenceBundle\Tests\App\AssetMapper\Src\Support\TestList;
+use Tito10047\PersistentPreferenceBundle\Tests\Integration\Kernel\AssetMapperKernelTestCase;
 
 class PreferenceManagerTest extends AssetMapperKernelTestCase
 {

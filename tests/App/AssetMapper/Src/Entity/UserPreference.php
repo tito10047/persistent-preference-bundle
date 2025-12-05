@@ -3,8 +3,7 @@
 namespace Tito10047\PersistentPreferenceBundle\Tests\App\AssetMapper\Src\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Tito10047\PersistentPreferenceBundle\Storage\BasePreference;
-use Tito10047\PersistentPreferenceBundle\Storage\PreferenceEntityInterface;
+use Tito10047\PersistentPreferenceBundle\Preference\Storage\BasePreference;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'user_preferences')]
